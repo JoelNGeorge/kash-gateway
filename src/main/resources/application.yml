@@ -1,0 +1,55 @@
+server:
+    port: 8100
+#    servlet:
+#        context-path: /kash
+
+spring:
+    application:
+        name: kash-gateway
+    cloud:
+        gateway:
+          discovery:
+              locator:
+                  enabled: true
+   
+jwt:
+  secret: BvPHGM8C0ia4uOuxxqPD5DTbWC9F9TWvPStp3pb7ARo0oK2mJ3pd3YG4lxA9i8bj6OTbadwezxgeEByY 
+            
+
+
+        
+management:
+    endpoints:
+        web:
+            base-path: /status
+            exposure:
+                include: health,info
+    endpoint:
+        info:
+            enabled: true
+
+#---------------- Eureka Client Config --------------                          
+eureka:
+  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+    service-url:
+      defaultZone : http://localhost:8500/eureka
+  instance:
+    prefer-ip-address: false
+    hostname: localhost
+    statusPageUrlPath: /status/info
+    healthCheckUrlPath: /status/health           
+---
+
+spring:
+    profiles: dev
+server:
+    port: 8101
+
+---
+
+spring:
+    profiles: prod
+server:
+    port: 8102
